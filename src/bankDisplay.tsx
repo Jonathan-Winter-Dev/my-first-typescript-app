@@ -3,6 +3,7 @@ type BankDisplayProps = {
   updateBalance: (newBalance: number) => void;
   name: string;
   balance: number;
+  isPlatinum: boolean;
 };
 
 export default function BankDisplay({
@@ -10,6 +11,7 @@ export default function BankDisplay({
   updateBalance,
   name,
   balance,
+  isPlatinum,
 }: BankDisplayProps) {
   function handleDeleteAccount() {
     deleteAccount();
@@ -22,7 +24,9 @@ export default function BankDisplay({
 
   return (
     <>
-      <h1>Howdy {name}</h1>
+      <h1>
+        Howdy {name} - {isPlatinum ? "Platinum" : "Standard"} Account
+      </h1>
       <h2>£{balance}</h2>
       <form action="">
         <label htmlFor="updateBalance"></label>

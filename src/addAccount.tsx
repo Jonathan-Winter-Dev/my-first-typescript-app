@@ -7,9 +7,8 @@ type AccountFormProps = {
 export default function NewAccountForm({ addAccount }: AccountFormProps) {
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(e.target.accountName.value);
     addAccount(
-      new Account(e.target.accountName.value, e.target.isPlatinum.isChecked),
+      new Account(e.target.accountName.value, e.target.isPlatinum.checked),
     );
   }
 

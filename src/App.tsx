@@ -25,6 +25,7 @@ function App() {
     <>
       {account ? (
         <BankDisplay
+          isPlatinum={account.isPlatinum}
           name={account.name}
           balance={account.balance}
           updateBalance={updateBalance}
