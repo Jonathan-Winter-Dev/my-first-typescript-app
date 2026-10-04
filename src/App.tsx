@@ -1,19 +1,38 @@
 import { useState } from "react";
 import "./App.css";
+import Account from "./account";
+import NewAccountForm from "./addAccount";
+import BankDisplay from "./bankDisplay";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [account, setAccount] = useState<Account | null>(null);
 
-  function stringCheck(string: string) {
-    console.log(string);
+  function addAccount(newAccount: Account) {
+    setAccount(newAccount);
+  }
+
+  function deleteAccount() {
+    setAccount(null);
+  }
+
+  function updateBalance(newBalance: number) {
+    if (account) {
+      setAccount({ ...account, balance: newBalance });
+    }
   }
 
   return (
     <>
-      <button onClick={() => setCount(count + 1)}>Button</button>
-      <button onClick={() => stringCheck(3)}>String</button>
-
-      <p>{count}</p>
+      {account ? (
+        <BankDisplay
+          name={account.name}
+          balance={account.balance}
+          updateBalance={updateBalance}
+          deleteAccount={deleteAccount}
+        />
+      ) : (
+        <NewAccountForm addAccount={addAccount} />
+      )}
     </>
   );
 }
