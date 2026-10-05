@@ -11,23 +11,28 @@ export default function Gif({ name }: GifProps) {
   useEffect(() => {
     async function fetchGif() {
       setUrl(null);
+      try {
+        const response = await fetch(
+          `http://api.giphy.com/v1/gifs/search?q=${name}&api_key=${apiKey}&limit=1`,
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const jsonResponse = await response.json();
 
-      await fetch(
-        `http://api.giphy.com/v1/gifs/search?q=${name}&api_key=${apiKey}&limit=1`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.data[0]);
-          setUrl(data.data[0].images.fixed_height.url);
-        });
+        setUrl(jsonResponse.data[0].images.fixed_height.url);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
+      }
     }
-
     fetchGif();
   }, [name]);
 
   return (
     <>
-      <img src={`${url}`} height="100px" width="100px" />
+      <img src={`${url}`} />
     </>
   );
 }
