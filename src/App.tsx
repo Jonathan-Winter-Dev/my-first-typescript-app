@@ -3,6 +3,7 @@ import "./App.css";
 import Account from "./account";
 import NewAccountForm from "./addAccount";
 import BankDisplay from "./bankDisplay";
+import Gif from "./apiPractice";
 
 function App() {
   const [account, setAccount] = useState<Account | null>(null);
@@ -34,6 +35,7 @@ function App() {
       ) : (
         <NewAccountForm addAccount={addAccount} />
       )}
+      {account ? <Gif name={account.name} /> : ""}
     </>
   );
 }
